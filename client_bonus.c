@@ -6,7 +6,7 @@
 /*   By: ohayek <ohayek@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 16:25:27 by ohayek            #+#    #+#             */
-/*   Updated: 2023/07/15 23:20:06 by ohayek           ###   ########.fr       */
+/*   Updated: 2023/07/16 14:29:12 by ohayek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,17 +78,16 @@ void	ft_send(int pid, char c)
 	}
 }
 
-void    ft_handler(int sgm)
+void    ft_handler(int sig)
 {
-    if (sgm == SIGUSR2)
-        write(1, "Thank You!\n", 11);
-	exit(0);
+	if (sig == SIGUSR2)
+		ft_putstrerr("Thank you!\n");
 }
 int	main(int ac, char **av)
 {
-	int		pid;
-	size_t	i;
-
+	int					pid;
+	size_t				i;
+	
 	if (ac == 3)
 	{
 		if (!ft_check_arg(av[1]))
@@ -97,8 +96,8 @@ int	main(int ac, char **av)
 		i = 0;
 		while (av[2][i])
 			ft_send(pid, av[2][i++]);
-		ft_send(pid, '\0');
 		signal(SIGUSR2, ft_handler);
+		ft_send(pid, '\0');
 	}
 	else
 		ft_putstrerr("Invalid Input!");

@@ -6,7 +6,7 @@
 /*   By: ohayek <ohayek@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 15:33:45 by ohayek            #+#    #+#             */
-/*   Updated: 2023/07/15 23:15:38 by ohayek           ###   ########.fr       */
+/*   Updated: 2023/07/16 14:20:45 by ohayek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ int	main(void)
 	int	                pid;
     struct sigaction    sa;
 
-    sa.sa_sigaction = ft_handler;
-    sigemptyset(&sa.sa_mask);
-    sa.sa_flags = 0;
+	sa.sa_flags = SA_SIGINFO;
+	sa.sa_sigaction = &ft_handler;
+	sigemptyset(&sa.sa_mask);
     pid = getpid();
 	ft_putnbr(pid);
 	write(1, "\n", 1);
