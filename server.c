@@ -6,12 +6,11 @@
 /*   By: ohayek <ohayek@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 15:33:45 by ohayek            #+#    #+#             */
-/*   Updated: 2023/07/15 19:46:20 by ohayek           ###   ########.fr       */
+/*   Updated: 2023/07/17 11:12:47 by ohayek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <signal.h>
+#include "minitalk.h"
 
 static inline
 void	ft_putnbr(int nbr)

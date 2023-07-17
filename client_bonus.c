@@ -6,35 +6,11 @@
 /*   By: ohayek <ohayek@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 16:25:27 by ohayek            #+#    #+#             */
-/*   Updated: 2023/07/16 14:29:12 by ohayek           ###   ########.fr       */
+/*   Updated: 2023/07/17 12:10:25 by ohayek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <signal.h>
-#include <stdlib.h>
-
-int	ft_atoi(const char *nptr)
-{
-	long	result;
-	int		a;
-
-	while (*nptr == '\n' || *nptr == '\t' || *nptr == '\r' \
-	|| *nptr == '\v' || *nptr == '\f' || *nptr == ' ')
-		nptr++;
-	a = *nptr == '-';
-	nptr += (a || *nptr == '+');
-	result = 0;
-	while (*nptr >= '0' && *nptr <= '9')
-	{
-		result = (result * 10) + *nptr++ - '0';
-		if (result > 2147483647 && a == 0)
-			return (-1);
-		if (result > 2147483648U && a == 1)
-			return (0);
-	}
-	return (result * ((a * -2) + 1));
-}
+#include "minitalk_bonus.h"
 
 void	ft_putstrerr(const char *str)
 {
@@ -78,16 +54,17 @@ void	ft_send(int pid, char c)
 	}
 }
 
-void    ft_handler(int sig)
+void	ft_handler(int sig)
 {
 	if (sig == SIGUSR2)
-		ft_putstrerr("Thank you!\n");
+		ft_putstrerr("The string received Thank you!\n");
 }
+
 int	main(int ac, char **av)
 {
 	int					pid;
 	size_t				i;
-	
+
 	if (ac == 3)
 	{
 		if (!ft_check_arg(av[1]))

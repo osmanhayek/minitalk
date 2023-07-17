@@ -6,12 +6,11 @@
 /*   By: ohayek <ohayek@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 15:33:45 by ohayek            #+#    #+#             */
-/*   Updated: 2023/07/16 14:20:45 by ohayek           ###   ########.fr       */
+/*   Updated: 2023/07/17 11:18:30 by ohayek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <signal.h>
+#include "minitalk_bonus.h"
 
 static inline
 void	ft_putnbr(int nbr)
@@ -48,13 +47,13 @@ void	ft_handler(int sgn, siginfo_t *info, void *context)
 	static unsigned char	i = 0;
 
 	(void)context;
-    if (sgn == SIGUSR1)
+	if (sgn == SIGUSR1)
 		i |= (0x01 << bit);
 	bit++;
 	if (bit == 8)
 	{
-        if (!i)
-            kill(info->si_pid, SIGUSR2);
+		if (!i)
+			kill(info->si_pid, SIGUSR2);
 		write(1, &i, 1);
 		i = 0;
 		bit = 0;
@@ -63,19 +62,19 @@ void	ft_handler(int sgn, siginfo_t *info, void *context)
 
 int	main(void)
 {
-	int	                pid;
-    struct sigaction    sa;
+	int					pid;
+	struct sigaction	sa;
 
 	sa.sa_flags = SA_SIGINFO;
 	sa.sa_sigaction = &ft_handler;
 	sigemptyset(&sa.sa_mask);
-    pid = getpid();
+	pid = getpid();
 	ft_putnbr(pid);
 	write(1, "\n", 1);
 	while (1)
 	{
-        sigaction(SIGUSR1, &sa, NULL);
-        sigaction(SIGUSR2, &sa, NULL);
+		sigaction(SIGUSR1, &sa, NULL);
+		sigaction(SIGUSR2, &sa, NULL);
 		pause();
 	}
 }
